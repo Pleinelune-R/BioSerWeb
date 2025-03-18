@@ -9,6 +9,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 @import "tailwindcss";
 @plugin "daisyui" {
   themes: all;

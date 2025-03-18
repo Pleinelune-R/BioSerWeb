@@ -16,7 +16,7 @@
   </div>
   
   <div class="navbar-center">
-    <a class="btn btn-ghost text-xl">daisyUI</a>
+    <a class="btn btn-ghost text-xl">BionetServer</a>
   </div>
   <div class="navbar-end">
     <button class="btn btn-ghost btn-circle">
@@ -30,8 +30,10 @@
     </button>
     <input
         type="checkbox"
-        value="abyss"
-        class="toggle theme-controller col-span-2 col-start-1 row-start-1 border-sky-400 bg-amber-300 [--tglbg:var(--color-sky-500)] checked:border-blue-800 checked:bg-blue-300 checked:[--tglbg:var(--color-blue-900)]" />
+        value="light"
+        class="toggle theme-controller col-span-2 col-start-1 row-start-1 
+        border-green-800 bg-warning [--tglbg:var(--color-sky-500)] 
+        checked:border-blue-800 checked:bg-blue-300 checked:[--tglbg:var(--color-blue-900)]" />
        
   </div>
 </div>
