@@ -41,30 +41,42 @@
     </div> 
 </template> 
  
-<script setup> 
-import { ref } from 'vue'; 
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
  
-// 定义响应式数据 
-const username = ref(''); 
-const password = ref(''); 
+const router = useRouter();
+const username = ref('');
+const password = ref('');
  
-// 登录函数 
-const login = async () => { 
-    try { 
-        // 读取 test.json  文件 
-        const response = await fetch('/test.json');  
-        const data = await response.json();  
+const login = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 
+        username: username.value, 
+        password: password.value  
+      })
+    });
  
-        // 验证用户名和密码 
-        if (username.value  === data.username  && password.value  === data.password)  { 
-            alert('登录成功！'); 
-            // 这里可以添加登录成功后的逻辑，例如跳转到主页 
-        } else { 
-            alert('用户名或密码错误，请重试。'); 
-        } 
-    } catch (error) { 
-        console.error(' 读取文件时出错:', error); 
-        alert('发生错误，请稍后重试。'); 
-    } 
-}; 
-</script> 
+    if (!response.ok)  {
+      throw new Error(`HTTP error! status: ${response.status}`); 
+    }
+ 
+    const { token, user } = await response.json(); 
+    
+    // 存储Token 
+    localStorage.setItem('jwtToken',  token);
+    localStorage.setItem('user',  JSON.stringify(user)); 
+    
+    alert('登录成功！');
+    router.push('/dashboard');  // 跳转到受保护路由 
+  } catch (error) {
+    console.error(' 登录失败:', error);
+    alert('认证失败，请检查凭证');
+  }
+};
+</script>
