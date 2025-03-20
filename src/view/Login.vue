@@ -1,10 +1,9 @@
 <template> 
     <div class="flex min-h-screen items-center justify-center p-4 sm:p-6 lg:p-8"> 
       <!-- 登录框卡片 -->    
-      <div class="card w-50 bg-base-100 items-center justify-center"> 
+      <div class="card w-full bg-base-100 items-center justify-center"> 
         <!-- 内部卡片，用于放置登录表单 --> 
-        <div class="flex-left card bg-base-200 w-100 h-60 items-center"> 
-          <br> 
+        <div class="flex-left card  w-full h-full items-center"> 
           <!-- 用户名输入框 --> 
           <label class="input validator"> 
                <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg"    viewBox="0 0 24 24"> 
@@ -33,15 +32,15 @@
           <!-- 密码输入提示 --> 
           <p class="validator-hint hidden"> 
             Must be more than 8 characters, including 
-          </p> 
+          </p>
           <br>
-          <button class="btn btn-primary" @click="login">登录</button> 
+          <button class="btn btn-primary" @click="login">Sign In</button> 
           <div class="text-center mt-4">
-          <span class="text-sm opacity-75">还没有账号？</span>
+          <span class="text-sm opacity-75">New to BionetServer?</span>
           <router-link 
             to="/register" 
             class="link link-hover text-primary text-sm font-semibold">
-          立即注册 
+          Create an account
           </router-link>
           </div>
         </div> 

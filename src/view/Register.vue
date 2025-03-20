@@ -1,9 +1,9 @@
 <template>
     <div class="flex min-h-screen items-center justify-center p-4 sm:p-6 lg:p-8"> 
         <!-- 登录框卡片 --> 
-        <div class="card w-full max-w-sm bg-base-100 items-center justify-center"> 
+        <div class="card w-full max-w-sm items-center justify-center"> 
             <!-- 内部卡片，用于放置登录表单 --> 
-            <div class="card bg-base-200 w-100 h-75 items-center justify-center p-8"> 
+            <div class="card w-full h-full items-center justify-center p-8"> 
           
           <!-- 用户名输入 -->
           <!-- <div class="form-control">
@@ -57,18 +57,21 @@
           </label> 
    
           <div class="form-control mt-6">
-            <button @click="register" class="btn btn-primary">注册</button>
+            <button @click="register" class="btn btn-primary">Sign Up</button>
           </div>
-        </div>
-        <div class="text-center mt-4">
-            <span class="text-sm opacity-75">已有账号？</span>
+
+          <div class="text-center mt-4">
+            <span class="text-sm opacity-75">Already have an account?</span>
             <router-link 
               to="/login" 
               class="link link-hover text-primary text-sm font-semibold"
             >
-              立即登录
+              Sign in
             </router-link>
         </div>
+        </div>
+        
+
       </div>
     </div>
   </template>
