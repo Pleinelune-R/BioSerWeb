@@ -29,7 +29,7 @@
     <!-- </button> -->
     <input
         type="checkbox"
-        value="light"
+        value="pastel"
         class="toggle theme-controller col-span-2 col-start-1 row-start-1 
         border-green-800 bg-warning [--tglbg:var(--color-sky-500)] 
         checked:border-blue-800 checked:bg-blue-300 checked:[--tglbg:var(--color-blue-900)]" />

@@ -1,14 +1,15 @@
-import CryptoJS from 'crypto-js';
- 
 export const secureStorage = {
-  setItem(key, value) {
-    const encrypted = CryptoJS.AES.encrypt( 
-      value, 
-      import.meta.env.VITE_CRYPTO_SECRET  
-    ).toString();
-    localStorage.setItem(key,  encrypted);
+  hashPassword(password) {
+    return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex); 
   },
-  getItem(key) {
-    //...解密逻辑 
+  
+  storeAuthData(token, user) {
+    localStorage.setItem('jwtToken',  token);
+    localStorage.setItem('user',  JSON.stringify(user)); 
+  },
+ 
+  clearAuthData() {
+    localStorage.removeItem('jwtToken'); 
+    localStorage.removeItem('user'); 
   }
 };
