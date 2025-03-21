@@ -7,10 +7,10 @@
   </div>
 
 
-    </template>
+</template>
 
-      
-  <script setup>
+
+<!-- <script setup>
   import { secureStorage } from '../utils/auth';
   import { useRouter } from 'vue-router';
   
@@ -20,4 +20,4 @@
     secureStorage.clearAuthData(); 
     router.push('/login'); 
   };
-  </script>
+  </script> -->
