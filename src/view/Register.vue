@@ -85,7 +85,7 @@
               <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
             </g>
           </svg>
-          <input v-model="verifycode" type="verifycode" required placeholder="verifycode" minlength="6" maxlength="6"
+          <input v-model="verifycode" type="vericode" required placeholder="vericode" minlength="6" maxlength="6"
             pattern="" title="Must be more than 8 characters, including number, lowercase letter, uppercase letter" />
         </label>
 
@@ -131,7 +131,7 @@ const username = ref('');
 const email = ref('');
 const password = ref('');
 const confirmPassword = ref('');
-const verifycode = ref('');
+const vericode = ref('');
 
 
 // const sendemail = async () => {
@@ -167,7 +167,7 @@ const register = async () => {
       username: username.value,
       email: email.value,
       password: password.value
-      // verifycode: verifycode.value
+      // vericode: vericode.value
     }), {
       headers: { 'Content-Type': 'application/json' }
     });
