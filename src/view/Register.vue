@@ -46,13 +46,13 @@
               <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
             </g>
           </svg>
-          <input v-model="confirmPassword" type="password" required placeholder="Password" minlength="8" pattern=""
-            title="Must be more than 8 characters, including number, lowercase letter, uppercase letter" />
+          <input v-model="confirmPassword" type="password" required placeholder="Password" minlength="6"
+            title="Must be more than 6 characters" />
         </label>
 
         <!-- 密码输入提示 -->
         <p class="validator-hint hidden">
-          Must be more than 8 characters, including
+          Must be more than 6 characters.
         </p>
         <br>
 
@@ -66,17 +66,45 @@
               <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
             </g>
           </svg>
-          <input v-model="password" type="password2" required placeholder="ConfirmPassword" minlength="8" pattern=""
-            title="Must be more than 8 characters, including number, lowercase letter, uppercase letter" />
+          <input v-model="password" type="password" required placeholder="ConfirmPassword" minlength="6"
+            title="Must be more than 6 characters" />
         </label>
+
+        <!-- 密码输入提示 -->
+        <p class="validator-hint hidden">
+          Must be more than 6 characters.
+        </p>
+
+        <!-- 输入验证码 -->
+        <label class="input validator2">
+          <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+              <path
+                d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z">
+              </path>
+              <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+            </g>
+          </svg>
+          <input v-model="verifycode" type="verifycode" required placeholder="verifycode" minlength="6" maxlength="6"
+            pattern="" title="Must be more than 8 characters, including number, lowercase letter, uppercase letter" />
+        </label>
+
+        <!-- 密码输入提示 -->
+        <p class="validator-hint hidden">
+          Must be 6 characters.
+        </p>
 
 
         <div class="form-control mt-6">
-          <button @click="SendVeriCode" class="btn btn-primary">Send verification code</button>
+          <button @click="sendemail" class="btn btn-primary">Send verification code</button>
         </div>
 
         <div class="form-control mt-6">
-          <button @click="register" class="btn btn-primary">Sign Up</button>
+          <button class="btn btn-primary" @click="register">Sign Up</button>
+        </div>
+
+        <div class="form-control mt-6">
+          <button class="btn btn-primary" @click="update">Update User</button>
         </div>
 
         <div class="text-center mt-4">
@@ -93,14 +121,40 @@
 </template>
 
 <script setup>
+import qs from 'qs';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import http from '../utils/http';
 
 const router = useRouter();
 const username = ref('');
+const email = ref('');
 const password = ref('');
 const confirmPassword = ref('');
+const verifycode = ref('');
+
+
+// const sendemail = async () => {
+
+//   try {
+//     const response = await http.post('/signup', ({
+//       username: username.value,
+//       email: email.value
+//     }), {
+//       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+//     });
+//     console.log('response:', response.status)
+//     if (response.status !== 200) {
+//       console.log('response:', response.data)
+//       throw new Error(response.data?.message || 'Unable to connect the server.');
+//     }
+
+//   }
+//   catch (error) {
+//     console.error('Fail:', error);
+//     alert(error.response?.data?.message || 'Email already exists.');
+//   }
+// };
 
 const register = async () => {
   if (password.value !== confirmPassword.value) {
@@ -109,12 +163,18 @@ const register = async () => {
   }
 
   try {
-    const response = await http.post('/login', qs.stringify({
+    const response = await http.post('/signup', ({
       username: username.value,
+      email: email.value,
       password: password.value
+      // verifycode: verifycode.value
     }), {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      headers: { 'Content-Type': 'application/json' }
     });
+    console.log('password:', password.value);
+    console.log('email:', email.value);
+    console.log('username:', username.value);
+
     console.log('response:', response.status)
     if (response.status !== 200) {
       console.log('response:', response.data)
@@ -127,7 +187,42 @@ const register = async () => {
   }
   catch (error) {
     console.error('Fail:', error);
-    alert(error.response?.data?.message || 'Invaild username or password.');
+    alert(error.response?.data?.message || 'Account already exists.');
+  }
+};
+
+const update = async () => {
+  if (password.value !== confirmPassword.value) {
+    alert('The passwords entered do not match.');
+    return;
+  }
+
+  try {
+    const response = await http.post('/change', ({
+      username: username.value,
+      email: email.value,
+      password: password.value
+      // verifycode: verifycode.value
+    }), {
+      headers: { 'Content-Type': 'application/json' }
+    });
+    console.log('password:', password.value);
+    console.log('email:', email.value);
+    console.log('username:', username.value);
+
+    console.log('response:', response.status)
+    if (response.status !== 200) {
+      console.log('response:', response.data)
+      throw new Error(response.data?.message || 'Unable to connect the server.');
+    }
+
+    //路由重定向逻辑
+    const redirectPath = router.currentRoute.value.query.redirect || '/login';
+    await router.replace(redirectPath);
+  }
+  catch (error) {
+    console.error('Fail:', error);
+    alert(error.response?.data?.message || 'Update failed, please check your urename or password.');
   }
 };
 </script>

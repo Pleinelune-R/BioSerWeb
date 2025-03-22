@@ -83,6 +83,7 @@ const login = async () => {
     const redirectPath = router.currentRoute.value.query.redirect || '/dashboard';
     await router.replace(redirectPath);
   }
+
   catch (error) {
     console.error('Fail:', error);
     alert(error.response?.data?.message || 'Invaild username or password.');

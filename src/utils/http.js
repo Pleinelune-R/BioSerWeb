@@ -1,7 +1,7 @@
 import axios from 'axios';
- 
-const http = axios.create({ 
-  baseURL: import.meta.env.VITE_API_BASE  || 'http://10.26.59.172:8000',
+
+const http = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE || 'http://10.26.59.172:8000',
 });
 
 // http.interceptors.request.use(config  => {
@@ -11,5 +11,5 @@ const http = axios.create({
 //   }
 //   return config;
 // });
- 
+
 export default http;
