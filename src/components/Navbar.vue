@@ -1,5 +1,6 @@
 <template>
   <div class="navbar bg-base-100 shadow-sm">
+    <!-- start -->
     <div class="navbar-start">
       <div class="dropdown">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
@@ -8,42 +9,50 @@
           </svg>
         </div>
         <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-          <li @click="toLogin"><a>Login</a></li>
-          <li @click="toServer"><a>BionetServer</a></li>
+          <li v-if="!user"><router-link to="/login">Login</router-link></li>
+          <li><router-link to="/dashboard">BionetServer</router-link></li>
         </ul>
       </div>
     </div>
 
+    <!-- center -->
     <div class="navbar-center">
-      <a class="btn btn-ghost text-xl">BionetServer</a>
+      <router-link to="/" class="btn btn-ghost text-xl">BionetServer</router-link>
     </div>
-    <div class="navbar-end">
-      <!-- <button class="btn btn-ghost btn-circle">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /> </svg>
-    </button> -->
-      <!-- <button class="btn btn-ghost btn-circle"> -->
-      <!-- <div class="indicator">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /> </svg>
-        <span class="badge badge-xs badge-primary indicator-item"></span>
-      </div> -->
-      <!-- </button> -->
-      <input type="checkbox" value="pastel" class="toggle theme-controller col-span-2 col-start-1 row-start-1 
-        border-green-800 bg-warning [--tglbg:var(--color-sky-500)] 
-        checked:border-blue-800 checked:bg-blue-300 checked:[--tglbg:var(--color-blue-900)]" />
 
+    <!-- end -->
+    <div class="navbar-end space-x-4">
+      <div v-if="user" class="flex items-center">
+        <div class="avatar placeholder">
+          <div class="bg-neutral text-neutral-content rounded-full w-8">
+            <span class="text-xs">{{ userInitial }}</span>
+          </div>
+        </div>
+        <span class="ml-2 font-medium">{{ user.username }}</span>
+      </div>
+      <input type="checkbox" value="pastel" class="toggle theme-controller" />
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  methods: {
-    toLogin() {
-      this.$router.push('/Login');
-    },
-
-    toServer() {
-      this.$router.push('/dashboard');
+  data() {
+    return {
+      user: null
+    }
+  },
+  computed: {
+    userInitial() {
+      return this.user?.username?.charAt(0).toUpperCase()
+    }
+  },
+  async getuser() {
+    try {
+      const response = await axios.get('/user')
+      this.user = response.data
+    } catch (error) {
+      console.error(' 用户信息获取失败:', error)
     }
   }
 }
