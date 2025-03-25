@@ -4,107 +4,50 @@
     <div class="card w-full max-w-sm items-center justify-center">
       <!-- 内部卡片，用于放置登录表单 -->
       <div class="card w-full h-full items-center justify-center p-8">
-        <label class="input validator">
-          <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
-              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </g>
-          </svg>
-          <input v-model="username" type="input" required placeholder="Username" pattern="[A-Za-z][A-Za-z0-9\-]*"
-            minlength="3" maxlength="30" title="Only letters, numbers or dash" />
-        </label>
-
-        <!-- 用户名输入提示 -->
+        <!-- 用户名输入 -->
+        <AuthInput v-model="username" icon-type="user" type="text" required placeholder="username"
+          pattern="[A-Za-z0-9\-]*" :min-length="3" :max-length="30" title="Only letters, numbers or dash" />
         <p class="validator-hint">
-          Must be 3 to 30 characters
+          Must be 3 to 30 characters.
         </p>
-
         <!-- 邮箱输入 -->
-        <label class="input validator">
-          <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
-              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </g>
-          </svg>
-          <input v-model="email" type="input" required placeholder="Email" minlength="3" maxlength="30" />
-        </label>
-
-        <!-- 用户名输入提示 -->
+        <AuthInput v-model="email" icon-type="email" type="text" required placeholder="Email" pattern="[A-Za-z0-9\-]*"
+          :min-length="3" :max-length="30" />
         <p class="validator-hint">
-          Must be 3 to 30 characters
+          Must be a valid email address.
         </p>
-
         <!-- 密码输入 -->
-        <label class="input validator">
-          <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
-              <path
-                d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z">
-              </path>
-              <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
-            </g>
-          </svg>
-          <input v-model="confirmPassword" type="password" required placeholder="Password" minlength="6"
-            title="Must be more than 6 characters" />
-        </label>
-
-        <!-- 密码输入提示 -->
-        <p class="validator-hint hidden">
-          Must be more than 6 characters.
+        <AuthInput v-model="password" icon-type="password" type="password" pattern="[A-Za-z0-9\-]*" :min-length="6"
+          :max-length="30" />
+        <p class="validator-hint">
+          Must be 6 to 30 characters.
         </p>
-        <br>
-
-        <!-- 确认密码 -->
-        <label class="input validator2">
-          <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
-              <path
-                d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z">
-              </path>
-              <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
-            </g>
-          </svg>
-          <input v-model="password" type="password" required placeholder="ConfirmPassword" minlength="6"
-            title="Must be more than 6 characters" />
-        </label>
-
-        <!-- 密码输入提示 -->
-        <p class="validator-hint hidden">
-          Must be more than 6 characters.
+        <!-- 密码确认 -->
+        <AuthInput v-model="password" icon-type="password" type="password" pattern="[A-Za-z0-9\-]*" :min-length="6"
+          :max-length="30" />
+        <p class="validator-hint">
+          Must be 6 to 30 characters.
         </p>
-
-        <!-- 输入验证码 -->
-        <label class="input validator2">
-          <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
-              <path
-                d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z">
-              </path>
-              <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
-            </g>
-          </svg>
-          <input v-model="verifycode" type="vericode" required placeholder="vericode" minlength="6" maxlength="6"
-            pattern="" title="Must be more than 8 characters, including number, lowercase letter, uppercase letter" />
-        </label>
-
-        <!-- 密码输入提示 -->
-        <p class="validator-hint hidden">
+        <!-- 验证码及按钮 -->
+        <div class="flex gap-2 mt-4">
+          <AuthInput v-model="vericode" icon-type="vericode" type="text" required placeholder="vericode"
+            pattern="[A-Za-z0-9\-]*" :min-length="6" :max-length="6" class="flex-1" />
+          <div class="form-control">
+            <button @click="sendemail" class="btn btn-secondary ">Send verification code</button>
+          </div>
+        </div>
+        <p class="validator-hint">
           Must be 6 characters.
         </p>
 
-
-        <div class="form-control mt-6">
-          <button @click="sendemail" class="btn btn-primary">Send verification code</button>
-        </div>
-
-        <div class="form-control mt-6">
-          <button class="btn btn-primary" @click="register">Sign Up</button>
-        </div>
-
-        <div class="form-control mt-6">
-          <button class="btn btn-primary" @click="update">Update User</button>
+        <!-- Sign Up/Update User -->
+        <div class="flex gap-3 mt-2 items-center justify-center">
+          <div class="form-control flex-1">
+            <button class="btn btn-primary" @click="register">Sign Up</button>
+          </div>
+          <div class="form-control flex-1">
+            <button class="btn btn-primary" @click="update">Update User</button>
+          </div>
         </div>
 
         <div class="text-center mt-4">
@@ -114,14 +57,12 @@
           </router-link>
         </div>
       </div>
-
-
     </div>
   </div>
 </template>
 
 <script setup>
-import qs from 'qs';
+import AuthInput from '../components/AuthInput.vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import http from '../utils/http';
